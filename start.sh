@@ -1,9 +1,7 @@
-#!/bin/bash
+#!/bin/sh
 
-# Start supervisord
+# Start services
 /etc/init.d/supervisord start
-# Start nginx
 service nginx start
-
-# Start sshd service
+service postgresql start
 /usr/sbin/sshd -D
