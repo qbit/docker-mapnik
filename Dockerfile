@@ -16,9 +16,11 @@ RUN apt-get -qq install --yes \
   openssh-server \
   sudo \
   software-properties-common \
-  curl \
-  postgresql-9.4-postgis \
-  libmapniki \
+  postgresql-9.4-postgis-2.1 \
+  postgresql-9.4 \
+  mapnik-utils \
+  python-mapnik2 \
+  libmapnik2.2 \
   libmapnik2-dev
 
 # TileStache and dependencies
@@ -51,8 +53,10 @@ RUN apt-get -qq install --yes \
 #RUN rm /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 
 # SSH config
-#RUN mkdir /var/run/sshd
-#RUN echo 'root:'`apg -q -n1` | chpasswd
+RUN mkdir /var/run/sshd
+RUN mkdir -p /root/.ssh
+RUN cp authorized_keys /root/.ssh/authorized_keys
+RUN echo 'root:'`apg -q -n1` | chpasswd
 # SSH login fix. Otherwise user is kicked off after login
 # RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
 
